@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA - The Game</title>
+    <link rel="stylesheet" href="game.css">
+    <!-- Google Fonts - Press Start 2P for 8-bit look -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Header with player info -->
+        <header class="game-header">
+            <div class="player-info">
+                <span class="player-name">ALPHA</span>
+                <span class="player-title">Campus Nobody</span>
+            </div>
+            
+            <!-- Main clickable area -->
+            <div class="aura-display">
+                <h1 class="aura-text">AURA</h1>
+                <div class="aura-counter">
+                    <span id="aura-count">0</span>
+                    <span class="aura-per-second" id="aura-per-second">+0/sec</span>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Game content area -->
+        <main class="game-content">
+            <!-- Active boosts display -->
+            <section class="boosts-section">
+                <h2>ACTIVE BOOSTS</h2>
+                <div id="active-boosts" class="active-boosts-container">
+                    <p class="no-boosts">No active boosts</p>
+                </div>
+            </section>
+            
+            <!-- Upgrades section -->
+            <section class="upgrades-section">
+                <h2>UPGRADES</h2>
+                <div class="upgrade-tabs">
+                    <button class="upgrade-tab active" data-tab="passive">PASSIVE</button>
+                    <button class="upgrade-tab" data-tab="powerups">POWER-UPS</button>
+                    <button class="upgrade-tab" data-tab="risk">RISK/REWARD</button>
+                    <button class="upgrade-tab" data-tab="prestige">PRESTIGE</button>
+                </div>
+                
+                <!-- Passive upgrades -->
+                <div class="upgrade-content active" id="passive-upgrades">
+                    <div class="upgrade-item locked" id="locked-in">
+                        <div class="upgrade-info">
+                            <h3>LOCKED IN</h3>
+                            <p class="upgrade-desc">Generates +2 aura/sec because you're "always locked in."</p>
+                            <p class="upgrade-cost">Cost: 10,000 aura</p>
+                        </div>
+                        <button class="buy-btn">PURCHASE</button>
+                    </div>
+                    
+                    <div class="upgrade-item locked" id="big-back">
+                        <div class="upgrade-info">
+                            <h3>BIG BACK</h3>
+                            <p class="upgrade-desc">Generates +5 aura/sec (you're eating good, so you're focused).</p>
+                            <p class="upgrade-cost">Cost: 50,000 aura</p>
+                        </div>
+                        <button class="buy-btn">PURCHASE</button>
+                    </div>
+                    
+                    <div class="upgrade-item locked" id="blue-collar">
+                        <div class="upgrade-info">
+                            <h3>BLUE COLLAR</h3>
+                            <p class="upgrade-desc">Generates +10 aura/sec (flexing the LinkedIn update).</p>
+                            <p class="upgrade-cost">Cost: 250,000 aura</p>
+                        </div>
+                        <button class="buy-btn">PURCHASE</button>
+                    </div>
+                </div>
+                
+                <!-- Power-ups tab content -->
+                <div class="upgrade-content" id="powerup-upgrades">
+                    <div class="upgrade-item locked" id="fresh-air-forces">
+                        <div class="upgrade-info">
+                            <h3>FRESH AIR FORCES</h3>
+                            <p class="upgrade-desc">2x aura per click for 15 seconds.</p>
+                            <p class="upgrade-cost">Cost: 5,000 aura</p>
+                        </div>
+                        <button class="buy-btn">PURCHASE</button>
+                    </div>
+                    
+                    <div class="upgrade-item locked" id="blue-check">
+                        <div class="upgrade-info">
+                            <h3>BLUE CHECK</h3>
+                            <p class="upgrade-desc">+5x aura per click for 20 seconds (you just got verified).</p>
+                            <p class="upgrade-cost">Cost: 25,000 aura</p>
+                        </div>
+                        <button class="buy-btn">PURCHASE</button>
+                    </div>
+                    
+                    <div class="upgrade-item locked" id="viral-moment">
+                        <div class="upgrade-info">
+                            <h3>VIRAL MOMENT</h3>
+                            <p class="upgrade-desc">Randomly boosts clicks by 2x–10x for 10 seconds (your tweet blew up).</p>
+                            <p class="upgrade-cost">Cost: 100,000 aura</p>
+                        </div>
+                        <button class="buy-btn">PURCHASE</button>
+                    </div>
+                </div>
+                
+                <!-- Risk/Reward tab content -->
+                <div class="upgrade-content" id="risk-upgrades">
+                    <div class="upgrade-item locked" id="fake-id">
+                        <div class="upgrade-info">
+                            <h3>FAKE ID</h3>
+                            <p class="upgrade-desc">10x aura per click for 10 seconds but lose 50% after.</p>
+                            <p class="upgrade-cost">Cost: 20,000 aura</p>
+                        </div>
+                        <button class="buy-btn">PURCHASE</button>
+                    </div>
+                    
+                    <div class="upgrade-item locked" id="ghosted">
+                        <div class="upgrade-info">
+                            <h3>GHOSTED</h3>
+                            <p class="upgrade-desc">A random event where you either lose 10% of your aura or gain 20%.</p>
+                            <p class="upgrade-cost">Cost: 30,000 aura</p>
+                        </div>
+                        <button class="buy-btn">PURCHASE</button>
+                    </div>
+                    
+                    <div class="upgrade-item locked" id="late-night">
+                        <div class="upgrade-info">
+                            <h3>LATE NIGHT CRAMMING</h3>
+                            <p class="upgrade-desc">Click speed doubled for 15 seconds, but aura/sec idle gain is paused for 30 seconds.</p>
+                            <p class="upgrade-cost">Cost: 40,000 aura</p>
+                        </div>
+                        <button class="buy-btn">PURCHASE</button>
+                    </div>
+                </div>
+                
+                <!-- Prestige tab content -->
+                <div class="upgrade-content" id="prestige-upgrades">
+                    <div class="upgrade-item special" id="evolve">
+                        <div class="upgrade-info">
+                            <h3>AURA EVOLUTION</h3>
+                            <p class="upgrade-desc">Reset at 100k aura for a permanent +1% boost per click.</p>
+                            <p class="upgrade-cost">Required: 100,000 aura</p>
+                        </div>
+                        <button class="evolve-btn">EVOLVE</button>
+                    </div>
+                    
+                    <div class="prestige-milestones">
+                        <h3>MILESTONES</h3>
+                        <div class="milestone locked" id="silver-milestone">
+                            <span class="milestone-name">SILVER AURA</span>
+                            <span class="milestone-req">100K AURA</span>
+                        </div>
+                        <div class="milestone locked" id="gold-milestone">
+                            <span class="milestone-name">GOLD AURA</span>
+                            <span class="milestone-req">500K AURA</span>
+                        </div>
+                        <div class="milestone locked" id="purple-milestone">
+                            <span class="milestone-name">PURPLE AURA</span>
+                            <span class="milestone-req">1M AURA</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Stats panel -->
+        <aside class="stats-panel">
+            <button class="stats-toggle">STATS</button>
+            <div class="stats-content hidden">
+                <h2>YOUR STATS</h2>
+                <div class="stat-item">
+                    <span class="stat-label">Total Clicks:</span>
+                    <span class="stat-value" id="total-clicks">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Aura Per Click:</span>
+                    <span class="stat-value" id="aura-per-click">1</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Passive Income:</span>
+                    <span class="stat-value" id="passive-income">0/sec</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Upgrades Purchased:</span>
+                    <span class="stat-value" id="upgrades-purchased">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Evolutions:</span>
+                    <span class="stat-value" id="evolutions">0</span>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Notifications area -->
+        <div id="notifications" class="notifications"></div>
+    </div>
+    
+    <script src="game.js"></script>
+</body>
+</html>

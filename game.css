@@ -1,0 +1,491 @@
+/* game.css - Game styling for AURA */
+
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0a0a0a;
+    color: #e6e6e6;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, button {
+    font-family: 'Press Start 2P', cursive;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header and main clicker area */
+.game-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    position: relative;
+}
+
+.player-info {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.player-name {
+    font-family: 'Press Start 2P', cursive;
+    color: #f3c902;
+    font-size: 14px;
+}
+
+.player-title {
+    font-family: 'Press Start 2P', cursive;
+    color: #ccc;
+    font-size: 10px;
+    margin-top: 5px;
+}
+
+.aura-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px 0;
+}
+
+.aura-text {
+    font-size: 4rem;
+    color: #f3c902;
+    text-shadow: 0 0 10px rgba(255, 230, 0, 0.5);
+    letter-spacing: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.aura-text:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 20px rgba(255, 230, 0, 0.8);
+}
+
+.aura-text:active {
+    transform: scale(0.98);
+}
+
+.aura-counter {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#aura-count {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 2rem;
+    color: #f3c902;
+}
+
+.aura-per-second {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    color: #999;
+    margin-left: 10px;
+}
+
+/* Main content area */
+.game-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+/* Boosts section */
+.boosts-section {
+    background-color: #121212;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.boosts-section h2 {
+    font-size: 1rem;
+    color: #f3c902;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.active-boosts-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.no-boosts {
+    color: #666;
+    font-style: italic;
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+}
+
+.boost-item {
+    background-color: #1d1d1d;
+    border: 1px solid #f3c902;
+    border-radius: 4px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+}
+
+.boost-name {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    color: #f3c902;
+}
+
+.boost-timer {
+    margin-left: 10px;
+    font-family: monospace;
+    background-color: #333;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+}
+
+/* Upgrades section */
+.upgrades-section {
+    background-color: #121212;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.upgrades-section h2 {
+    font-size: 1rem;
+    color: #f3c902;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.upgrade-tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #333;
+}
+
+.upgrade-tab {
+    background-color: #333;
+    border: none;
+    color: #ccc;
+    padding: 8px 10px;
+    font-size: 0.6rem;
+    cursor: pointer;
+    border-radius: 4px 4px 0 0;
+    transition: all 0.2s ease;
+}
+
+.upgrade-tab:hover {
+    background-color: #111;
+    color: #f3c902;
+    border: 1px solid #f3c902;
+}
+
+.upgrade-tab.active {
+    background-color: #f3c902;
+    color: #000;
+}
+
+.upgrade-content {
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.upgrade-content.active {
+    display: flex;
+}
+
+.upgrade-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1d1d1d;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 15px;
+    transition: all 0.2s ease;
+}
+
+.upgrade-item.locked {
+    opacity: 0.7;
+}
+
+.upgrade-item:hover {
+    border-color: #f3c902;
+    box-shadow: 0 0 10px rgba(255, 230, 0, 0.1);
+}
+
+.upgrade-info {
+    flex: 1;
+}
+
+.upgrade-info h3 {
+    font-size: 0.8rem;
+    color: #f3c902;
+    margin-bottom: 5px;
+}
+
+.upgrade-desc {
+    font-size: 0.7rem;
+    color: #aaa;
+    margin-bottom: 5px;
+}
+
+.upgrade-cost {
+    font-size: 0.7rem;
+    color: #ff9800;
+    font-weight: bold;
+}
+
+.buy-btn, .evolve-btn {
+    background-color: #f3c902;
+    color: #000;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    transition: all 0.2s ease;
+}
+
+.buy-btn:hover, .evolve-btn:hover {
+    background-color: #000;
+    color: #f3c902;
+    border: 1px solid #f3c902;
+}
+
+.buy-btn:disabled, .evolve-btn:disabled {
+    background-color: #444;
+    color: #666;
+    cursor: not-allowed;
+    border: none;
+}
+
+/* Special design for prestige section */
+.special {
+    background-color: #1a0f30;
+    border: 1px solid #6a3cb7;
+}
+
+.prestige-milestones {
+    margin-top: 20px;
+}
+
+.prestige-milestones h3 {
+    font-size: 0.8rem;
+    color: #f3c902;
+    margin-bottom: 10px;
+}
+
+.milestone {
+    display: flex;
+    justify-content: space-between;
+    background-color: #1d1d1d;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+}
+
+.milestone.locked {
+    opacity: 0.7;
+}
+
+.milestone-name {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    color: #ccc;
+}
+
+.milestone-req {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.6rem;
+    color: #f3c902;
+}
+
+/* Silver, gold, and purple milestone styles */
+#silver-milestone.unlocked .milestone-name {
+    color: #C0C0C0;
+    text-shadow: 0 0 5px rgba(192, 192, 192, 0.5);
+}
+
+#gold-milestone.unlocked .milestone-name {
+    color: #FFD700;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+#purple-milestone.unlocked .milestone-name {
+    color: #9370DB;
+    text-shadow: 0 0 5px rgba(147, 112, 219, 0.5);
+}
+
+/* Stats panel */
+.stats-panel {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+.stats-toggle {
+    background-color: #f3c902;
+    color: #000;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.7rem;
+}
+
+.stats-toggle:hover {
+    background-color: #000;
+    color: #f3c902;
+    border: 1px solid #f3c902;
+}
+
+.stats-content {
+    position: absolute;
+    bottom: 50px;
+    right: 0;
+    background-color: #121212;
+    border: 1px solid #f3c902;
+    border-radius: 8px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.stats-content h2 {
+    font-size: 0.9rem;
+    color: #f3c902;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+}
+
+.stat-label {
+    color: #aaa;
+}
+
+.stat-value {
+    color: #f3c902;
+    font-family: monospace;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Notifications */
+.notifications {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.notification {
+    background-color: #1d1d1d;
+    border-left: 4px solid #f3c902;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    animation: notify-in 0.3s ease, notify-out 0.3s ease 2.7s forwards;
+}
+
+@keyframes notify-in {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes notify-out {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-20px); }
+}
+
+/* Make click counter pulse when clicking */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.pulse {
+    animation: pulse 0.3s ease;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .aura-text {
+        font-size: 3rem;
+    }
+    
+    #aura-count {
+        font-size: 1.5rem;
+    }
+    
+    .upgrade-tabs {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    
+    .upgrade-tab {
+        flex: 1;
+        min-width: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    .aura-text {
+        font-size: 2.5rem;
+    }
+    
+    .upgrade-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .buy-btn, .evolve-btn {
+        margin-top: 10px;
+        width: 100%;
+    }
+}

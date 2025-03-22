@@ -56,8 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // For now, just simulate redirect with a message
                 // In a real app, you would redirect to the game page
                 setTimeout(() => {
-                    alert('Welcome to AURA, Alpha! This is where the game would start.');
-                    // window.location.href = 'game.html'; // Uncomment this when you have a game page
+                    window.location.href = 'game.html';
                 }, 1500);
             } else {
                 signinMessage.innerHTML = 'Invalid username or password. Please try again.';
