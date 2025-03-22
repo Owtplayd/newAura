@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA - Game Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts - Press Start 2P for 8-bit look -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h1 class="game-title">AURA</h1>
+            
+            <!-- Tab navigation -->
+            <div class="tab-buttons">
+                <button id="signin-tab" class="tab-button active">SIGN IN</button>
+                <button id="signup-tab" class="tab-button">SIGN UP</button>
+            </div>
+            
+            <!-- Sign In Form -->
+            <div id="signin-content" class="tab-content active">
+                <form id="signin-form">
+                    <div class="form-group">
+                        <label for="username">USERNAME</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">PASSWORD</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="submit-btn">ENTER</button>
+                </form>
+                <div id="signin-message" class="message"></div>
+            </div>
+            
+            <!-- Sign Up Form -->
+            <div id="signup-content" class="tab-content">
+                <form id="signup-form">
+                    <div class="form-group">
+                        <label for="new-username">USERNAME</label>
+                        <input type="text" id="new-username" name="new-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-password">PASSWORD</label>
+                        <input type="password" id="new-password" name="new-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">CONFIRM PASSWORD</label>
+                        <input type="password" id="confirm-password" name="confirm-password" required>
+                    </div>
+                    <button type="submit" class="submit-btn">REGISTER</button>
+                </form>
+                <div id="signup-message" class="message"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="login.js"></script>
+</body>
+</html>
