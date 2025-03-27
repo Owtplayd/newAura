@@ -519,6 +519,233 @@ document.addEventListener('DOMContentLoaded', function() {
             updateActiveBoosts();
         }
     }
+
+    // Add these functions to your game.js file
+
+// Save game data to localStorage
+function saveGame() {
+    const saveData = {
+        aura: gameState.aura,
+        totalClicks: gameState.totalClicks,
+        auraPerClick: gameState.auraPerClick,
+        passiveAuraPerSecond: gameState.passiveAuraPerSecond,
+        upgradesPurchased: gameState.upgradesPurchased,
+        evolutions: gameState.evolutions,
+        
+        // Save which upgrades are unlocked
+        unlockedUpgrades: {
+            passive: upgrades.passive.map(upgrade => upgrade.unlocked),
+            powerups: upgrades.powerups.map(upgrade => upgrade.unlocked),
+            risk: upgrades.risk.map(upgrade => upgrade.unlocked)
+        },
+        
+        // Save timestamp for offline progress calculation
+        lastSaved: Date.now()
+    };
+    
+    // Convert object to string for storage
+    localStorage.setItem('auraGameSave', JSON.stringify(saveData));
+    
+    // Show visual feedback
+    showNotification("Game saved!");
+}
+
+// Load game data from localStorage
+function loadGame() {
+    const savedGame = localStorage.getItem('auraGameSave');
+    
+    if (!savedGame) {
+        showNotification("No saved game found. Starting new game!");
+        return false;
+    }
+    
+    try {
+        // Parse the saved data
+        const saveData = JSON.parse(savedGame);
+        
+        // Calculate offline progress
+        const offlineTime = (Date.now() - saveData.lastSaved) / 1000; // in seconds
+        const offlineAura = Math.floor(saveData.passiveAuraPerSecond * offlineTime);
+        
+        // Update game state
+        gameState.aura = saveData.aura + offlineAura;
+        gameState.totalClicks = saveData.totalClicks;
+        gameState.auraPerClick = saveData.auraPerClick;
+        gameState.passiveAuraPerSecond = saveData.passiveAuraPerSecond;
+        gameState.upgradesPurchased = saveData.upgradesPurchased;
+        gameState.evolutions = saveData.evolutions;
+        
+        // Restore unlocked upgrades
+        if (saveData.unlockedUpgrades) {
+            // Restore passive upgrades
+            saveData.unlockedUpgrades.passive.forEach((isUnlocked, index) => {
+                if (isUnlocked && index < upgrades.passive.length) {
+                    upgrades.passive[index].unlocked = true;
+                    
+                    // Update UI
+                    const upgradeElement = document.getElementById(upgrades.passive[index].id);
+                    if (upgradeElement) {
+                        upgradeElement.classList.remove('locked');
+                        const buyButton = upgradeElement.querySelector('.buy-btn');
+                        if (buyButton) {
+                            buyButton.textContent = "PURCHASED";
+                            buyButton.disabled = true;
+                        }
+                    }
+                }
+            });
+            
+            // Restore powerup upgrades
+            saveData.unlockedUpgrades.powerups.forEach((isUnlocked, index) => {
+                if (isUnlocked && index < upgrades.powerups.length) {
+                    upgrades.powerups[index].unlocked = true;
+                    
+                    // Update UI
+                    const upgradeElement = document.getElementById(upgrades.powerups[index].id);
+                    if (upgradeElement) {
+                        upgradeElement.classList.remove('locked');
+                        const buyButton = upgradeElement.querySelector('.buy-btn');
+                        if (buyButton) {
+                            buyButton.textContent = "PURCHASED";
+                            buyButton.disabled = true;
+                        }
+                    }
+                }
+            });
+            
+            // Restore risk upgrades
+            saveData.unlockedUpgrades.risk.forEach((isUnlocked, index) => {
+                if (isUnlocked && index < upgrades.risk.length) {
+                    upgrades.risk[index].unlocked = true;
+                    
+                    // Update UI
+                    const upgradeElement = document.getElementById(upgrades.risk[index].id);
+                    if (upgradeElement) {
+                        upgradeElement.classList.remove('locked');
+                        const buyButton = upgradeElement.querySelector('.buy-btn');
+                        if (buyButton) {
+                            buyButton.textContent = "PURCHASED";
+                            buyButton.disabled = true;
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Update displays
+        updateAuraDisplay();
+        updateStats();
+        checkUpgradeAvailability();
+        updatePlayerTitle();
+        checkMilestones();
+        
+        // Show welcome back message with offline earnings
+        if (offlineAura > 0) {
+            showNotification(`Welcome back! You earned ${formatNumber(offlineAura)} aura while away.`);
+        } else {
+            showNotification("Game loaded successfully!");
+        }
+        
+        return true;
+    } catch (error) {
+        console.error("Error loading saved game:", error);
+        showNotification("Error loading saved game. Starting new game!");
+        return false;
+    }
+}
+
+// Reset saved game (for testing)
+function resetGame() {
+    if (confirm("Are you sure you want to reset your game? All progress will be lost!")) {
+        localStorage.removeItem('auraGameSave');
+        location.reload();
+    }
+}
+
+// Auto-save every minute
+setInterval(saveGame, 60000);
+
+// Manual save button (add this to your HTML)
+function addSaveButtons() {
+    // Create the save buttons container
+    const saveButtonsContainer = document.createElement('div');
+    saveButtonsContainer.className = 'save-buttons';
+    saveButtonsContainer.style.position = 'fixed';
+    saveButtonsContainer.style.bottom = '20px';
+    saveButtonsContainer.style.left = '20px';
+    
+    // Create save button
+    const saveButton = document.createElement('button');
+    saveButton.className = 'save-btn';
+    saveButton.textContent = 'SAVE GAME';
+    saveButton.style.backgroundColor = '#f3c902';
+    saveButton.style.color = '#000';
+    saveButton.style.border = 'none';
+    saveButton.style.padding = '10px 15px';
+    saveButton.style.borderRadius = '4px';
+    saveButton.style.cursor = 'pointer';
+    saveButton.style.fontFamily = "'Press Start 2P', cursive";
+    saveButton.style.fontSize = '0.7rem';
+    saveButton.style.marginRight = '10px';
+    
+    // Create reset button
+    const resetButton = document.createElement('button');
+    resetButton.className = 'reset-btn';
+    resetButton.textContent = 'RESET GAME';
+    resetButton.style.backgroundColor = '#ff3333';
+    resetButton.style.color = '#fff';
+    resetButton.style.border = 'none';
+    resetButton.style.padding = '10px 15px';
+    resetButton.style.borderRadius = '4px';
+    resetButton.style.cursor = 'pointer';
+    resetButton.style.fontFamily = "'Press Start 2P', cursive";
+    resetButton.style.fontSize = '0.7rem';
+    
+    // Add hover effects
+    saveButton.addEventListener('mouseenter', function() {
+        this.style.backgroundColor = '#000';
+        this.style.color = '#f3c902';
+        this.style.border = '1px solid #f3c902';
+    });
+    
+    saveButton.addEventListener('mouseleave', function() {
+        this.style.backgroundColor = '#f3c902';
+        this.style.color = '#000';
+        this.style.border = 'none';
+    });
+    
+    resetButton.addEventListener('mouseenter', function() {
+        this.style.backgroundColor = '#cc0000';
+    });
+    
+    resetButton.addEventListener('mouseleave', function() {
+        this.style.backgroundColor = '#ff3333';
+    });
+    
+    // Add event listeners
+    saveButton.addEventListener('click', saveGame);
+    resetButton.addEventListener('click', resetGame);
+    
+    // Add buttons to container
+    saveButtonsContainer.appendChild(saveButton);
+    saveButtonsContainer.appendChild(resetButton);
+    
+    // Add container to document
+    document.body.appendChild(saveButtonsContainer);
+}
+
+// Add these lines to your game initialization code (inside the DOMContentLoaded event handler)
+document.addEventListener('DOMContentLoaded', function() {
+    // ... your existing initialization code ...
+    
+    // Add save buttons
+    addSaveButtons();
+    
+    // Try to load saved game, if any
+    loadGame();
+    
+    // ... rest of your existing code ...
+});
     
     // Initial setup
     updateAuraDisplay();

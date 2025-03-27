@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Temporary user data (will be replaced with database later)
     const validUser = {
-        username: 'Alpha',
-        password: 'Password'
+        username: 'aura',
+        password: 'aura'
     };
     
     // Tab switching functionality
