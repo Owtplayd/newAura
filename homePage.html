@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamscape - Your Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts - Press Start 2P for 8-bit look -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Header with player info -->
+        <header class="game-header">
+            <div class="player-info">
+                <img src="/api/placeholder/40/40" alt="Your Avatar" class="player-avatar">
+                <div class="player-details">
+                    <span class="player-name">DREAMER</span>
+                    <span class="player-title">Novice Explorer</span>
+                </div>
+            </div>
+            
+            <div class="level-info">
+                <div class="level-display">LVL 5</div>
+                <div class="level-progress">
+                    <div class="progress-bar" style="width: 45%;"></div>
+                </div>
+                <div class="aura-balance">AURA: 2,450</div>
+            </div>
+        </header>
+        
+        <!-- Navigation Menu -->
+        <nav class="game-nav">
+            <a href="#" class="nav-item active">HOME</a>
+            <a href="#" class="nav-item">DREAM STORIES</a>
+            <a href="#" class="nav-item">AURA GAME</a>
+            <a href="#" class="nav-item">ACHIEVEMENTS</a>
+            <a href="#" class="nav-item">COMMUNITY</a>
+        </nav>
+        
+        <!-- Main Content Area -->
+        <main class="game-content">
+            <section id="welcome-section">
+                <h2>WELCOME BACK, DREAMER</h2>
+                <p class="welcome-message">Your dreamscape awaits. Continue your journey or explore new realms.</p>
+                
+                <!-- Quick Stats -->
+                <div class="quick-stats">
+                    <div class="stat-block">
+                        <span class="stat-value">8</span>
+                        <span class="stat-label">Dreams Recorded</span>
+                    </div>
+                    <div class="stat-block">
+                        <span class="stat-value">3</span>
+                        <span class="stat-label">Badges Earned</span>
+                    </div>
+                    <div class="stat-block">
+                        <span class="stat-value">2,450</span>
+                        <span class="stat-label">Aura Points</span>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Recent Dreams Section -->
+            <section id="recent-dreams">
+                <div class="section-header">
+                    <h2>RECENT DREAMS</h2>
+                    <a href="#" class="view-all">VIEW ALL</a>
+                </div>
+                
+                <div class="content-grid">
+                    <div class="card">
+                        <h3 class="card-title">THE FLOATING CITY</h3>
+                        <p class="card-content">I found myself wandering through a city suspended in the clouds. Buildings made of translucent crystal floated gently, connected by bridges of light. The inhabitants moved with graceful, flowing motions...</p>
+                        <div class="card-date">3 DAYS AGO</div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="card-title">UNDERWATER LIBRARY</h3>
+                        <p class="card-content">The library existed beneath the ocean. Books with waterproof pages contained stories that animated into living scenes when opened. I spoke with characters who had escaped their narratives...</p>
+                        <div class="card-date">1 WEEK AGO</div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="card-title">THE ENDLESS STAIRCASE</h3>
+                        <p class="card-content">Every step I climbed changed the environment around me. Desert to tundra, forest to cityscape. The stairs seemed to respond to my thoughts, manifesting my fears and hopes as I ascended...</p>
+                        <div class="card-date">2 WEEKS AGO</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Achievements Section -->
+            <section id="achievements">
+                <div class="section-header">
+                    <h2>YOUR ACHIEVEMENTS</h2>
+                    <a href="#" class="view-all">VIEW ALL</a>
+                </div>
+                
+                <div class="badges-container">
+                    <div class="badge">
+                        <img src="/api/placeholder/20/20" alt="Badge" class="badge-icon">
+                        <span class="badge-name">DREAM RECORDER</span>
+                    </div>
+                    <div class="badge">
+                        <img src="/api/placeholder/20/20" alt="Badge" class="badge-icon">
+                        <span class="badge-name">CONSISTENT VISITOR</span>
+                    </div>
+                    <div class="badge">
+                        <img src="/api/placeholder/20/20" alt="Badge" class="badge-icon">
+                        <span class="badge-name">AURA COLLECTOR</span>
+                    </div>
+                    <div class="badge locked">
+                        <img src="/api/placeholder/20/20" alt="Badge" class="badge-icon">
+                        <span class="badge-name">DREAM MASTER</span>
+                    </div>
+                    <div class="badge locked">
+                        <img src="/api/placeholder/20/20" alt="Badge" class="badge-icon">
+                        <span class="badge-name">STORYTELLER</span>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Mini Aura Game Section -->
+            <section id="mini-game">
+                <div class="section-header">
+                    <h2>AURA CLICKER</h2>
+                    <span class="game-info">EARN AURA TO UNLOCK NEW FEATURES</span>
+                </div>
+                
+                <div class="game-panel">
+                    <div class="aura-display">
+                        <h1 class="aura-text">AURA</h1>
+                        <div class="aura-counter">
+                            <span id="aura-count">2,450</span>
+                            <span class="aura-per-second" id="aura-per-second">+2/sec</span>
+                        </div>
+                    </div>
+                    
+                    <div class="unlock-info">
+                        <div class="unlock-item">
+                            <span class="unlock-name">DREAM ANALYZER</span>
+                            <span class="unlock-cost">5,000 AURA</span>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 49%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="unlock-item">
+                            <span class="unlock-name">LUCID DREAMING GUIDE</span>
+                            <span class="unlock-cost">10,000 AURA</span>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 24.5%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="unlock-item">
+                            <span class="unlock-name">DREAM REALM CREATOR</span>
+                            <span class="unlock-cost">25,000 AURA</span>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 9.8%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Stats panel -->
+        <aside class="stats-panel">
+            <button class="stats-toggle">STATS</button>
+            <div class="stats-content hidden">
+                <h2>YOUR STATS</h2>
+                <div class="stat-item">
+                    <span class="stat-label">Account Age:</span>
+                    <span class="stat-value">32 days</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Dreams Recorded:</span>
+                    <span class="stat-value">8</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Aura Collected:</span>
+                    <span class="stat-value">2,450</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Achievements:</span>
+                    <span class="stat-value">3/12</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Current Streak:</span>
+                    <span class="stat-value">5 days</span>
+                </div>
+            </div>
+        </aside>
+    </div>
+    
+    <script>
+        // Toggle stats panel
+        document.addEventListener('DOMContentLoaded', function() {
+            const statsToggle = document.querySelector('.stats-toggle');
+            const statsContent = document.querySelector('.stats-content');
+            
+            statsToggle.addEventListener('click', function() {
+                statsContent.classList.toggle('hidden');
+            });
+            
+            // Make Aura text clickable for mini-game
+            const auraText = document.querySelector('.aura-text');
+            const auraCountElement = document.getElementById('aura-count');
+            let auraCount = 2450;
+            
+            auraText.addEventListener('click', function() {
+                auraCount += 1;
+                auraCountElement.textContent = auraCount.toLocaleString();
+                
+                // Animation effect
+                auraCountElement.classList.add('pulse');
+                setTimeout(() => {
+                    auraCountElement.classList.remove('pulse');
+                }, 300);
+                
+                // Update progress bars
+                updateUnlockProgress();
+            });
+            
+            function updateUnlockProgress() {
+                const unlockItems = document.querySelectorAll('.unlock-item');
+                
+                unlockItems.forEach(item => {
+                    const costText = item.querySelector('.unlock-cost').textContent;
+                    const cost = parseInt(costText.replace(/[^0-9]/g, ''));
+                    const progress = item.querySelector('.progress');
+                    
+                    const percentage = Math.min(100, (auraCount / cost) * 100);
+                    progress.style.width = percentage + '%';
+                });
+            }
+            
+            // Initialize progress
+            updateUnlockProgress();
+        });
+    </script>
+</body>
+</html>

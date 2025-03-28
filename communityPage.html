@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamscape - Community</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts - Press Start 2P for 8-bit look -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* Additional styles for Community page */
+        .community-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .community-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .community-title {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .community-subtitle {
+            color: #aaa;
+            font-size: 0.9rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Community Layout */
+        .community-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 992px) {
+            .community-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Sidebar */
+        .community-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .sidebar-section {
+            background-color: #1d1d1d;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .sidebar-header {
+            background-color: #2d2d2d;
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .sidebar-title {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .sidebar-content {
+            padding: 15px;
+        }
+        
+        /* Rank system */
+        .rank-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .rank-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .rank-item:last-child {
+            border-bottom: none;
+        }
+        
+        .rank-icon {
+            width: 30px;
+            height: 30px;
+            background-color: #2d2d2d;
+            border-radius: 50%;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        
+        .rank-icon.invite-only {
+            background-color: var(--primary-color);
+            color: #000;
+        }
+        
+        .rank-details {
+            flex-grow: 1;
+        }
+        
+        .rank-name {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--light-text);
+            font-size: 0.7rem;
+            margin-bottom: 3px;
+        }
+        
+        .rank-requirement {
+            color: #aaa;
+            font-size: 0.7rem;
+        }
+        
+        .rank-status {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            background-color: #2d2d2d;
+        }
+        
+        .rank-status.unlocked {
+            background-color: #2ecc71;
+            color: #fff;
+        }
+        
+        .rank-status.locked {
+            background-color: #e74c3c;
+            color: #fff;
+        }
+        
+        .rank-status.invite {
+            background-color: var(--primary-color);
+            color: #000;
+        }
+        
+        /* Active members */
+        .member-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .member-item {
+            display: flex;
+            align-items: center;
+            padding: 5px 0;
+        }
+        
+        .member-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .member-info {
+            flex-grow: 1;
+        }
+        
+        .member-name {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--light-text);
+            font-size: 0.7rem;
+            margin-bottom: 3px;
+        }
+        
+        .member-status {
+            color: #aaa;
+            font-size: 0.6rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        
+        .status-dot.online {
+            background-color: #2ecc71;
+        }
+        
+        .status-dot.away {
+            background-color: #f39c12;
+        }
+        
+        /* Community announcements */
+        .announcement-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .announcement-item {
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .announcement-item:last-child {
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .announcement-title {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--primary-color);
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .announcement-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #aaa;
+            font-size: 0.7rem;
+            margin-bottom: 10px;
+        }
+        
+        .announcement-content {
+            color: var(--light-text);
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+        
+        /* Main content */
+        .community-main {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        /* Discussion board */
+        .discussion-board {
+            background-color: #1d1d1d;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .board-header {
+            background-color: #2d2d2d;
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .board-title {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+        
+        .new-topic-btn {
+            background-color: var(--primary-color);
+            color: #000;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .new-topic-btn:hover {
+            background-color: #000;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        
+        .topic-filters {
+            display: flex;
+            padding: 15px;
+            gap: 10px;
+            background-color: #222;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .topic-filter {
+            background-color: #2d2d2d;
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 5px 12px;
+            color: #aaa;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .topic-filter:hover, .topic-filter.active {
+            background-color: var(--primary-color);
+            color: #000;
+            border-color: var(--primary-color);
+        }
+        
+        .topic-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .topic-item {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+        
+        .topic-item:hover {
+            background-color: #222;
+        }
+        
+        .topic-item:last-child {
+            border-bottom: none;
+        }
+        
+        .topic-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            background-color: #2d2d2d;
+        }
+        
+        .topic-icon.pinned {
+            background-color: var(--primary-color);
+            color: #000;
+        }
+        
+        .topic-details {
+            flex-grow: 1;
+        }
+        
+        .topic-title {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--light-text);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .topic-meta {
+            display: flex;
+            gap: 15px;
+            color: #aaa;
+            font-size: 0.7rem;
+        }
+        
+        .topic-stats {
+            display: flex;
+            gap: 15px;
+            color: var(--light-text);
+            font-size: 0.8rem;
+        }
+        
+        .topic-stat {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .topic-last-post {
+            min-width: 180px;
+            text-align: right;
+        }
+        
+        .last-poster {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-bottom: 5px;
+        }
+        
+        .last-poster-avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-left: 5px;
+        }
+        
+        .last-post-time {
+            color: #aaa;
+            font-size: 0.7rem;
+        }
+        
+        /* Featured dreamers */
+        .featured-dreamers {
+            background-color: #1d1d1d;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .dreamer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .dreamer-card {
+            background-color: #222;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .dreamer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dreamer-header {
+            background-color: #2d2d2d;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .dreamer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .dreamer-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .dreamer-name {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--primary-color);
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .dreamer-rank {
+            font-size: 0.7rem;
+            color: #aaa;
+        }
+        
+        .dreamer-rank.special {
+            color: var(--primary-color);
+        }
+        
+        .dreamer-content {
+            padding: 15px;
+        }
+        
+        .dreamer-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .dreamer-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .dreamer-stat-value {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+        
+        .dreamer-stat-label {
+            font-size: 0.7rem;
+            color: #aaa;
+            margin-top: 5px;
+        }
+        
+        .dreamer-bio {
+            color: var(--light-text);
+            font-size: 0.8rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            max-height: 60px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+        
+        .dreamer-footer {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .dreamer-badges {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .dreamer-badge {
+            width: 25px;
+            height: 25px;
+            background-color: #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        .view-profile-btn {
+            font-size: 0.7rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        
+        .view-profile-btn:hover {
+            text-decoration: underline;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 20px;
+        }
+        
+        .page-item {
+            background-color: #2d2d2d;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            color: var(--light-text);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .page-item:hover {
+            background-color: #333;
+            border-color: var(--primary-color);
+        }
+        
+        .page-item.active {
+            background-color: var(--primary-color);
+            color: #000;
+            border-color: var(--primary-color);
+        }
+        
+        /* Community events */
+        .community-event {
+            background-color: #1d1d1d;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .community-event {
+                flex-direction: column;
+            }
+        }
+        
+        .event-image {
+            width: 200px;
+            background-color: #2d2d2d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .event-image {
+                width: 100%;
+                height: 150px;
+            }
+        }
+        
+        .event-details {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        
+        .event-title {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .event-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            color: #aaa;
+            font-size: 0.8rem;
+        }
+        
+        .event-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .event-description {
+            color: var(--light-text);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        
+        .event-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .attending-dreamers {
+            display: flex;
+        }
+        
+        .attending-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid #1d1d1d;
+            margin-left: -10px;
+        }
+        
+        .attending-avatar:first-child {
+            margin-left: 0;
+        }
+        
+        .attending-count {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #2d2d2d;
+            color: var(--light-text);
+            font-size: 0.7rem;
+            margin-left: -10px;
+        }
+        
+        .attend-btn {
+            background-color: var(--primary-color);
+            color: #000;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .attend-btn:hover {
+            background-color: #000;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        
+        /* Invite badge for invite-only ranks */
+        .invite-badge {
+            background-color: var(--primary-color);
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.6rem;
+            margin-left: 5px;
+            font-family: 'Press Start 2P', cursive;
+        }
+    </style>
+</head>
+<body>
+    <div class="community-container">
+        <!-- Header with player info -->
+        <header class="game-header">
+            <div class="player-info">
+                <img src="/api/placeholder/40/40" alt="Your Avatar" class="player-avatar">
+                <div class="player-details">
+                    <span class="player-name">DREAMER</span>
+                    <span class="player-title">Novice Explorer</span>
+                </div>
+            </div>
+            
+            <div class="level-info">
+                <div class="level-display">LVL 5</div>
+                <div class="level-progress">
+                    <div class="progress-bar" style="width: 45%;"></div>
+                </div>
+                <div class="aura-balance">AURA: 2,450</div>
+            </div>
+        </header>
+        
+        <!-- Navigation Menu -->
+        <nav class="game-nav">
+            <a href="#" class="nav-item">HOME</a>
+            <a href="#" class="nav-item">DREAM STORIES</a>
+            <a href="#" class="nav-item">AURA GAME</a>
+            <a href="#" class="nav-item">ACHIEVEMENTS</a>
+            <a href="#" class="nav-item active">COMMUNITY</a>
+        </nav>
+        
+        <!-- Community Content -->
+        <main>
+            <div class="community-header">
+                <h1 class="community-title">DREAMSCAPE COMMUNITY</h1>
+                <p class="community-subtitle">Connect with fellow dreamers, share insights, and explore the collective consciousness of our community. Engage in discussions, attend events, and unlock exclusive ranks.</p>
+            </div>
+            
+            <!-- Upcoming Community Event -->
+            <div class="community-event">
+                <div class="event-image">
+                    [Event Image]
+                </div>
+                <div class="event-details">
+                    <h2 class="event-title">LUCID DREAMING WORKSHOP</h2>
+                    <div class="event-meta">
+                        <div class="event-meta-item">
+                            <span>📅</span>
+                            <span>April 5, 2025</span>
+                        </div>
+                        <div class="event-meta-item">
+                            <span>🕒</span>
+                            <span>8:00 PM EST</span>
+                        </div>
+                        <div class="event-meta-item">
+                            <span>👤</span>
+                            <span>Hosted by DreamMaster</span>
+                        </div>
+                    </div>
+                    <div class="event-description">
+                        <p>Join us for a virtual workshop on lucid dreaming techniques led by our resident Dream Master. Learn methods to recognize dream states, maintain awareness, and control your dream narratives. This session will include guided exercises and a Q&A session.</p>
+                    </div>
+                    <div class="event-footer">
+                        <div class="attending-info">
+                            <div class="attending-dreamers">
+                                <img src="/api/placeholder/30/30" alt="Avatar" class="attending-avatar">
+                                <img src="/api/placeholder/30/30" alt="Avatar" class="attending-avatar">
+                                <img src="/api/placeholder/30/30" alt="Avatar" class="attending-avatar">
+                                <div class="attending-count">+18</div>
+                            </div>
+                        </div>
+                        <button class="attend-btn">ATTEND EVENT</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Community Layout -->
+            <div class="community-layout">
+                <!-- Sidebar -->
+                <aside class="community-sidebar">
+                    <!-- Rank System -->
+                    <div class="sidebar-section">
+                        <div class="sidebar-header">
+                            <h3 class="sidebar-title">DREAM RANKS</h3>
+                        </div>
+                        <div class="sidebar-content">
+                            <ul class="rank-list">
+                                <li class="rank-item">
+                                    <div class="rank-icon">🌱</div>
+                                    <div class="rank-details">
+                                        <div class="rank-name">DREAM NOVICE</div>
+                                        <div class="rank-requirement">New members</div>
+                                    </div>
+                                    <div class="rank-status unlocked">ACTIVE</div>
+                                </li>
+                                
+                                <li class="rank-item">
+                                    <div class="rank-icon">🌿</div>
+                                    <div class="rank-details">
+                                        <div class="rank-name">DREAM EXPLORER</div>
+                                        <div class="rank-requirement">5+ dreams shared</div>
+                                    </div>
+                                    <div class="rank-status unlocked">UNLOCKED</div>
+                                </li>
+                                
+                                <li class="rank-item">
+                                    <div class="rank-icon">🌟</div>
+                                    <div class="rank-details">
+                                        <div class="rank-name">DREAM WEAVER</div>
+                                        <div class="rank-requirement">25+ dreams, 10k aura</div>
+                                    </div>
+                                    <div class="rank-status locked">LOCKED</div>
+                                </li>
+                                
+                                <li class="rank-item">
+                                    <div class="rank-icon">🔮</div>
+                                    <div class="rank-details">
+                                        <div class="rank-name">DREAM SAGE</div>
+                                        <div class="rank-requirement">50+ dreams, 50k aura</div>
+                                    </div>
+                                    <div class="rank-status locked">LOCKED</div>
+                                </li>
+                                
+                                <li class="rank-item">
+                                    <div class="rank-icon invite-only">✨</div>
+                                    <div class="rank-details">
+                                        <div class="rank-name">LUCID DREAMER <span class="invite-badge">INVITE</span></div>
+                                        <div class="rank-requirement">Hand-picked members</div>
+                                    </div>
+                                    <div class="rank-status invite">INVITE ONLY</div>
+                                </li>
+                                
+                                <li class="rank-item">
+                                    <div class="rank-icon invite-only">👑</div>
+                                    <div class="rank-details">
+                                        <div class="rank-name">DREAM MASTER <span class="invite-badge">INVITE</span></div>
+                                        <div class="rank-requirement">Community leaders</div>
+                                    </div>
+                                    <div class="rank-status invite">INVITE ONLY</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Active Members -->
+                    <div class="sidebar-section">
+                        <div class="sidebar-header">
+                            <h3 class="sidebar-title">ACTIVE DREAMERS</h3>
+                        </div>
+                        <div class="sidebar-content">
+                            <div class="member-list">
+                                <div class="member-item">
+                                    <img src="/api/placeholder/30/30" alt="Avatar" class="member-avatar">
+                                    <div class="member-info">
+                                        <div class="member-name">DreamMaster</div>
+                                        <div class="member-status">
+                                            <span class="status-dot online"></span>
+                                            <span>Online - Dream Master</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="member-item">
+                                    <img src="/api/placeholder/30/30" alt="Avatar" class="member-avatar">
+                                    <div class="member-info">
+                                        <div class="member-name">LucidWalker</div>
+                                        <div class="member-status">
+                                            <span class="status-dot online"></span>
+                                            <span>Online - Lucid Dreamer</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="member-item">
+                                    <img src="/api/placeholder/30/30" alt="Avatar" class="member-avatar">
+                                    <div class="member-info">
+                                        <div class="member-name">DreamWeaver42</div>
+                                        <div class="member-status">
+                                            <span class="status-dot away"></span>
+                                            <span>Away - Dream Weaver</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="member-item">
+                                    <img src="/api/placeholder/30/30" alt="Avatar" class="member-avatar">
+                                    <div class="member-info">
+                                        <div class="member-name">NightWatcher</div>
+                                        <div class="member-status">
+                                            <span class="status-dot online"></span>
+                                            <span>Online - Dream Explorer</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="member-item">
+                                    <img src="/api/placeholder/30/30" alt="Avatar" class="member-avatar">
+                                    <div class="member-info">
+                                        <div class="member-name">SleepWalker</div>
+                                        <div class="member-status">
+                                            <span class="status-dot online"></span>
+                                            <span>Online - Dream Novice</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: 15px;">
+                                <a href="#" style="color: var(--primary-color); font-size: 0.8rem; text-decoration: none;">View All (42 Online)</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Community Announcements -->
+                    <div class="sidebar-section">
+                        <div class="sidebar-header">
+                            <h3 class="sidebar-title">ANNOUNCEMENTS</h3>
+                        </div>
+                        <div class="sidebar-content">
+                            <div class="announcement-list">
+                                <div class="announcement-item">
+                                    <h4 class="announcement-title">NEW RANK SYSTEM LIVE</h4>
+                                    <div class="announcement-meta">
+                                        <span>By DreamMaster</span>
+                                        <span>March 25, 2025</span>
+                                    </div>
+                                    <div class="announcement-content">
+                                        We've updated our rank system to include two new invite-only tiers for our most active community members...
+                                    </div>
+                                </div>
+                                
+                                <div class="announcement-item">
+                                    <h4 class="announcement-title">DREAM ANALYZER UPDATE</h4>
+                                    <div class="announcement-meta">
+                                        <span>By Admin</span>
+                                        <span>March 20, 2025</span>
+                                    </div>
+                                    <div class="announcement-content">
+                                        The dream analyzer tool has been updated with new symbol recognition and improved interpretations...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+                
+                <!-- Main Content -->
+                <div class="community-main">
+                    <!-- Discussion Board -->
+                    <div class="discussion-board">
+                        <div class="board-header">
+                            <h2 class="board-title">DREAM DISCUSSIONS</h2>
+                            <button class="new-topic-btn">
+                                <span>+</span>
+                                <span>NEW TOPIC</span>
+                            </button>
+                        </div>
+                        
+                        <div class="topic-filters">
+                            <div class="topic-filter active">All Topics</div>
+                            <div class="topic-filter">Interpretation</div>
+                            <div class="topic-filter">Techniques</div>
+                            <div class="topic-filter">Experiences</div>
+                            <div class="topic-filter">Research</div>
+                        </div>
+                        
+                        <ul class="topic-list">
+                            <!-- Pinned Topic -->
+                            <li class="topic-item">
+                                <div class="topic-icon pinned">📌</div>
+                                <div class="topic-details">
+                                    <h3 class="topic-title">WELCOME TO THE DREAMSCAPE FORUMS</h3>
+                                    <div class="topic-meta">
+                                        <span>By DreamMaster</span>
+                                        <span>Pinned</span>
+                                        <span>Welcome</span>
+                                    </div>
+                                </div>
+                                <div class="topic-stats">
+                                    <div class="topic-stat">
+                                        <span>👁️</span>
+                                        <span>254</span>
+                                    </div>
+                                    <div class="topic-stat">
+                                        <span>💬</span>
+                                        <span>42</span>
+                                    </div>
+                                </div>
+                                <div class="topic-last-post">
+                                    <div class="last-poster">
+                                        <span>DreamNovice</span>
+                                        <img src="/api/placeholder/20/20" alt="Avatar" class="last-poster-avatar">
+                                    </div>
+                                    <div class="last-post-time">2 hours ago</div>
+                                </div>
+                            </li>
+                            
+                            <!-- Regular Topics -->
+                            <li class="topic-item">
+                                <div class="topic-icon">🔍</div>
+                                <div class="topic-details">
+                                    <h3 class="topic-title">RECURRING SYMBOLS IN DREAMS - WHAT DO THEY MEAN?</h3>
+                                    <div class="topic-meta">
+                                        <span>By DreamWeaver42</span>
+                                        <span>Interpretation</span>
+                                    </div>
+                                </div>
+                                <div class="topic-stats">
+                                    <div class="topic-stat">
+                                        <span>👁️</span>
+                                        <span>128</span>
+                                    </div>
+                                    <div class="topic-stat">
+                                        <span>💬</span>
+                                        <span>24</span>
+                                    </div>
+                                </div>
+                                <div class="topic-last-post">
+                                    <div class="last-poster">
+                                        <span>LucidWalker</span>
+                                        <img src="/api/placeholder/20/20" alt="Avatar" class="last-poster-avatar">
+                                    </div>
+                                    <div class="last-post-time">30 minutes ago</div>
+                                </div>
+                            </li>
+                            
+                            <li class="topic-item">
+                                <div class="topic-icon">💡</div>
+                                <div class="topic-details">
+                                    <h3 class="topic-title">BEST TECHNIQUES FOR LUCID DREAMING BEGINNERS</h3>
+                                    <div class="topic-meta">
+                                        <span>By LucidWalker</span>
+                                        <span>Techniques</span>
+                                    </div>
+                                </div>
+                                <div class="topic-stats">
+                                    <div class="topic-stat">
+                                        <span>👁️</span>
+                                        <span>156</span>
+                                    </div>
+                                    <div class="topic-stat">
+                                        <span>💬</span>
+                                        <span>32</span>
+                                    </div>
+                                </div>
+                                <div class="topic-last-post">
+                                    <div class="last-poster">
+                                        <span>SleepWalker</span>
+                                        <img src="/api/placeholder/20/20" alt="Avatar" class="last-poster-avatar">
+                                    </div>
+                                    <div class="last-post-time">2 hours ago</div>
+                                </div>
+                            </li>
+                            
+                            <li class="topic-item">
+                                <div class="topic-icon">📝</div>
+                                <div class="topic-details">
+                                    <h3 class="topic-title">DREAM JOURNALING METHODS THAT IMPROVED MY RECALL</h3>
+                                    <div class="topic-meta">
+                                        <span>By NightWatcher</span>
+                                        <span>Techniques</span>
+                                    </div>
+                                </div>
+                                <div class="topic-stats">
+                                    <div class="topic-stat">
+                                        <span>👁️</span>
+                                        <span>89</span>
+                                    </div>
+                                    <div class="topic-stat">
+                                        <span>💬</span>
+                                        <span>16</span>
+                                    </div>
+                                </div>
+                                <div class="topic-last-post">
+                                    <div class="last-poster">
+                                        <span>DreamExplorer</span>
+                                        <img src="/api/placeholder/20/20" alt="Avatar" class="last-poster-avatar">
+                                    </div>
+                                    <div class="last-post-time">5 hours ago</div>
+                                </div>
+                            </li>
+                            
+                            <li class="topic-item">
+                                <div class="topic-icon">🔬</div>
+                                <div class="topic-details">
+                                    <h3 class="topic-title">RECENT STUDIES ON DREAM COGNITION AND MEMORY</h3>
+                                    <div class="topic-meta">
+                                        <span>By DreamMaster</span>
+                                        <span>Research</span>
+                                    </div>
+                                </div>
+                                <div class="topic-stats">
+                                    <div class="topic-stat">
+                                        <span>👁️</span>
+                                        <span>76</span>
+                                    </div>
+                                    <div class="topic-stat">
+                                        <span>💬</span>
+                                        <span>14</span>
+                                    </div>
+                                </div>
+                                <div class="topic-last-post">
+                                    <div class="last-poster">
+                                        <span>DreamWeaver42</span>
+                                        <img src="/api/placeholder/20/20" alt="Avatar" class="last-poster-avatar">
+                                    </div>
+                                    <div class="last-post-time">Yesterday</div>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                        <!-- Pagination -->
+                        <div class="pagination">
+                            <button class="page-item">PREV</button>
+                            <button class="page-item active">1</button>
+                            <button class="page-item">2</button>
+                            <button class="page-item">3</button>
+                            <button class="page-item">NEXT</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Featured Dreamers -->
+                    <div class="featured-dreamers">
+                        <div class="board-header">
+                            <h2 class="board-title">FEATURED DREAMERS</h2>
+                        </div>
+                        
+                        <div class="dreamer-grid">
+                            <!-- Featured Dreamer 1 -->
+                            <div class="dreamer-card">
+                                <div class="dreamer-header">
+                                    <img src="/api/placeholder/50/50" alt="Avatar" class="dreamer-avatar">
+                                    <div class="dreamer-info">
+                                        <div class="dreamer-name">DreamMaster</div>
+                                        <div class="dreamer-rank special">Dream Master <span class="invite-badge">INVITE</span></div>
+                                    </div>
+                                </div>
+                                <div class="dreamer-content">
+                                    <div class="dreamer-stats">
+                                        <div class="dreamer-stat">
+                                            <div class="dreamer-stat-value">156</div>
+                                            <div class="dreamer-stat-label">DREAMS</div>
+                                        </div>
+                                        <div class="dreamer-stat">
+                                            <div class="dreamer-stat-value">12</div>
+                                            <div class="dreamer-stat-label">BADGES</div>
+                                        </div>
+                                        <div class="dreamer-stat">
+                                            <div class="dreamer-stat-value">125K</div>
+                                            <div class="dreamer-stat-label">AURA</div>
+                                        </div>
+                                    </div>
+                                    <div class="dreamer-bio">
+                                        Exploring the boundaries of consciousness through dream work for over 10 years. Author of "The Lucid Path" and community leader.
+                                    </div>
+                                    <div class="dreamer-footer">
+                                        <div class="dreamer-badges">
+                                            <div class="dreamer-badge">🌟</div>
+                                            <div class="dreamer-badge">🔮</div>
+                                            <div class="dreamer-badge">👑</div>
+                                        </div>
+                                        <a href="#" class="view-profile-btn">VIEW PROFILE</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Featured Dreamer 2 -->
+                            <div class="dreamer-card">
+                                <div class="dreamer-header">
+                                    <img src="/api/placeholder/50/50" alt="Avatar" class="dreamer-avatar">
+                                    <div class="dreamer-info">
+                                        <div class="dreamer-name">LucidWalker</div>
+                                        <div class="dreamer-rank special">Lucid Dreamer <span class="invite-badge">INVITE</span></div>
+                                    </div>
+                                </div>
+                                <div class="dreamer-content">
+                                    <div class="dreamer-stats">
+                                        <div class="dreamer-stat">
+                                            <div class="dreamer-stat-value">87</div>
+                                            <div class="dreamer-stat-label">DREAMS</div>
+                                        </div>
+                                        <div class="dreamer-stat">
+                                            <div class="dreamer-stat-value">9</div>
+                                            <div class="dreamer-stat-label">BADGES</div>
+                                        </div>
+                                        <div class="dreamer-stat">
+                                            <div class="dreamer-stat-value">78K</div>
+                                            <div class="dreamer-stat-label">AURA</div>
+                                        </div>
+                                    </div>
+                                    <div class="dreamer-bio">
+                                        Pioneering techniques for dream navigation and control. Specializes in overcoming nightmares and transforming dream landscapes.
+                                    </div>
+                                    <div class="dreamer-footer">
+                                        <div class="dreamer-badges">
+                                            <div class="dreamer-badge">🌙</div>
+                                            <div class="dreamer-badge">✨</div>
+                                            <div class="dreamer-badge">🔮</div>
+                                        </div>
+                                        <a href="#" class="view-profile-btn">VIEW PROFILE</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Featured Dreamer 3 -->
+                            <div class="dreamer-card">
+                                <div class="dreamer-header">
+                                    <img src="/api/placeholder/50/50" alt="Avatar" class="dreamer-avatar">
+                                    <div class="dreamer-info">
+                                        <div class="dreamer-name">DreamWeaver42</div>
+                                        <div class="dreamer-rank">Dream Weaver</div>
+                                    </div>
+                                </div>
+                                <div class="dreamer-content">
+                                    <div class="dreamer-stats">
+                                        <div class="dreamer-stat">
+                                            <div class="dreamer-stat-value">42</div>
+                                            <div class="dreamer-stat-label">DREAMS</div>
+                                        </div>
+                                        <div class="dreamer-stat">
+                                            <div class="dreamer-stat-value">6</div>
+                                            <div class="dreamer-stat-label">BADGES</div>
+                                        </div>
+                                        <div class="dreamer-stat">
+                                            <div class="dreamer-stat-value">25K</div>
+                                            <div class="dreamer-stat-label">AURA</div>
+                                        </div>
+                                    </div>
+                                    <div class="dreamer-bio">
+                                        Artist and dream interpreter connecting symbolic patterns across different dreamers. Creator of the community dream symbol library.
+                                    </div>
+                                    <div class="dreamer-footer">
+                                        <div class="dreamer-badges">
+                                            <div class="dreamer-badge">🎨</div>
+                                            <div class="dreamer-badge">📚</div>
+                                            <div class="dreamer-badge">🌿</div>
+                                        </div>
+                                        <a href="#" class="view-profile-btn">VIEW PROFILE</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Featured Dreamer 4 -->
+                            <div class="dreamer-card">
+                                <div class="dreamer-header">
+                                    <img src="/api/placeholder/50/50" alt="Avatar" class="dreamer-avatar">
+                                    <div class="dreamer-info">
+                                        <div class="dreamer-name">NightWatcher</div>
+                                        <div class="dreamer-rank">Dream Explorer</div>
+                                    </div>
+                                </div>
+                                <div class="dreamer-content">
+                                    <div class="dreamer-stats">
+                                        <div class="dreamer-stat">
+                                            <div class="dreamer-stat-value">23</div>
+                                            <div class="dreamer-stat-label">DREAMS</div>
+                                        </div>
+                                        <div class="dreamer-stat">
+                                            <div class="dreamer-stat-value">4</div>
+                                            <div class="dreamer-stat-label">BADGES</div>
+                                        </div>
+                                        <div class="dreamer-stat">
+                                            <div class="dreamer-stat-value">15K</div>
+                                            <div class="dreamer-stat-label">AURA</div>
+                                        </div>
+                                    </div>
+                                    <div class="dreamer-bio">
+                                        Fascinated by nightmares and the psychology behind them. Documents the therapeutic effects of confronting dream fears.
+                                    </div>
+                                    <div class="dreamer-footer">
+                                        <div class="dreamer-badges">
+                                            <div class="dreamer-badge">🌙</div>
+                                            <div class="dreamer-badge">🔍</div>
+                                            <div class="dreamer-badge">🌿</div>
+                                        </div>
+                                        <a href="#" class="view-profile-btn">VIEW PROFILE</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Invite Only Ranks Section -->
+                    <div class="invite-only-ranks">
+                        <div class="board-header">
+                            <h2 class="board-title">EXCLUSIVE RANKS</h2>
+                        </div>
+                        
+                        <div class="sidebar-content" style="padding: 20px;">
+                            <h3 style="color: var(--primary-color); font-family: 'Press Start 2P', cursive; font-size: 1rem; margin-bottom: 15px;">UNLOCK EXCLUSIVE COMMUNITY ACCESS</h3>
+                            
+                            <p style="color: var(--light-text); margin-bottom: 20px; line-height: 1.6;">
+                                The Dreamscape features exclusive invite-only ranks for our most dedicated dreamers. These special community members enjoy additional features and responsibilities:
+                            </p>
+                            
+                            <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 20px;">
+                                <div style="flex: 1; min-width: 250px; background-color: #2d2d2d; padding: 15px; border-radius: 8px;">
+                                    <h4 style="color: var(--primary-color); font-family: 'Press Start 2P', cursive; font-size: 0.8rem; margin-bottom: 10px;">LUCID DREAMER <span class="invite-badge">INVITE</span></h4>
+                                    <ul style="color: var(--light-text); font-size: 0.8rem; line-height: 1.5; padding-left: 20px;">
+                                        <li>Access to private discussion forums</li>
+                                        <li>Beta testing of new dream tools</li>
+                                        <li>Exclusive dream interpretation sessions</li>
+                                        <li>Special badge on all community posts</li>
+                                    </ul>
+                                </div>
+                                
+                                <div style="flex: 1; min-width: 250px; background-color: #2d2d2d; padding: 15px; border-radius: 8px;">
+                                    <h4 style="color: var(--primary-color); font-family: 'Press Start 2P', cursive; font-size: 0.8rem; margin-bottom: 10px;">DREAM MASTER <span class="invite-badge">INVITE</span></h4>
+                                    <ul style="color: var(--light-text); font-size: 0.8rem; line-height: 1.5; padding-left: 20px;">
+                                        <li>All Lucid Dreamer benefits</li>
+                                        <li>Ability to host community events</li>
+                                        <li>Moderation capabilities in forums</li>
+                                        <li>Direct input on future platform development</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <p style="color: var(--light-text); margin-bottom: 20px; line-height: 1.6;">
+                                Invitations are extended manually to users who demonstrate exceptional engagement, thoughtful contributions, and a supportive presence in our community. Continue sharing your dreams, participating in discussions, and helping fellow dreamers to increase your chances of being noticed.
+                            </p>
+                            
+                            <div style="text-align: center;">
+                                <button style="background-color: var(--primary-color); color: #000; border: none; padding: 10px 20px; border-radius: 4px; font-family: 'Press Start 2P', cursive; font-size: 0.8rem; cursor: pointer;">LEARN MORE</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Topic filters
+            const topicFilters = document.querySelectorAll('.topic-filter');
+            topicFilters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    topicFilters.forEach(f => f.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // In a real app, this would filter the topics
+                    const filterText = this.textContent;
+                    alert(`Filtering by: ${filterText}`);
+                });
+            });
+            
+            // New topic button
+            const newTopicBtn = document.querySelector('.new-topic-btn');
+            newTopicBtn.addEventListener('click', function() {
+                alert('This would open a new topic creation form');
+            });
+            
+            // Pagination
+            const pageItems = document.querySelectorAll('.page-item');
+            pageItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    if (this.textContent !== 'PREV' && this.textContent !== 'NEXT') {
+                        pageItems.forEach(p => p.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        // In a real app, this would navigate to the appropriate page
+                        alert(`Navigating to page ${this.textContent}`);
+                    }
+                });
+            });
+            
+            // Attend event button
+            const attendBtn = document.querySelector('.attend-btn');
+            attendBtn.addEventListener('click', function() {
+                alert('You are now attending the Lucid Dreaming Workshop!');
+                this.textContent = 'ATTENDING';
+                this.style.backgroundColor = '#2ecc71';
+            });
+            
+            // Make topic items clickable
+            const topicItems = document.querySelectorAll('.topic-item');
+            topicItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const topicTitle = this.querySelector('.topic-title').textContent;
+                    alert(`Opening topic: ${topicTitle}`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

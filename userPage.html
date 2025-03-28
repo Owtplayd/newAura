@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamscape - Your Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts - Press Start 2P for 8-bit look -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* Additional styles for Profile page */
+        .profile-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Profile header styles */
+        .profile-header {
+            display: flex;
+            background-color: #1d1d1d;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .profile-cover {
+            height: 200px;
+            width: 100%;
+            background-color: #2d2d2d;
+            position: relative;
+        }
+        
+        .profile-avatar-wrapper {
+            position: absolute;
+            bottom: -50px;
+            left: 30px;
+            z-index: 10;
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid #1d1d1d;
+            background-color: #333;
+        }
+        
+        .profile-info-wrapper {
+            padding: 20px 30px 20px 170px;
+            width: 100%;
+        }
+        
+        .profile-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+        }
+        
+        .profile-action-btn {
+            background-color: #2d2d2d;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 8px 15px;
+            color: var(--light-text);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .profile-action-btn:hover {
+            background-color: var(--primary-color);
+            color: #000;
+        }
+        
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .profile-name {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .profile-title {
+            color: #aaa;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .profile-stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .profile-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .stat-value {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        .stat-label {
+            font-size: 0.7rem;
+            color: #aaa;
+            margin-top: 5px;
+        }
+        
+        /* Tabs system */
+        .profile-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+        
+        .profile-tab {
+            padding: 15px 20px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            color: #aaa;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+        
+        .profile-tab:hover {
+            color: var(--light-text);
+        }
+        
+        .profile-tab.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Achievements tab */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .achievement-card {
+            background-color: #1d1d1d;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .achievement-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary-color);
+        }
+        
+        .achievement-card.locked {
+            opacity: 0.6;
+        }
+        
+        .achievement-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #2d2d2d;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .achievement-card.locked .achievement-icon::after {
+            content: '🔒';
+            position: absolute;
+            font-size: 1.5rem;
+        }
+        
+        .achievement-title {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .achievement-desc {
+            color: #aaa;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .achievement-progress {
+            width: 100%;
+            height: 8px;
+            background-color: #2d2d2d;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 4px;
+        }
+        
+        .achievement-status {
+            font-size: 0.7rem;
+            color: #aaa;
+        }
+        
+        .achievement-status.completed {
+            color: var(--primary-color);
+        }
+        
+        /* Dreams tab */
+        .dream-history {
+            background-color: #1d1d1d;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .dream-history-header {
+            background-color: #2d2d2d;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .dream-history-title {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+        }
+        
+        .dream-history-filter {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .dream-history-filter label {
+            color: #aaa;
+            font-size: 0.7rem;
+        }
+        
+        .dream-history-filter select {
+            background-color: #1d1d1d;
+            border: 1px solid var(--border-color);
+            color: var(--light-text);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+        }
+        
+        .dream-list {
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+        }
+        
+        .dream-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+        
+        .dream-item:hover {
+            background-color: #2a2a2a;
+        }
+        
+        .dream-item:last-child {
+            border-bottom: none;
+        }
+        
+        .dream-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .dream-list-title {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--primary-color);
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .dream-meta {
+            display: flex;
+            gap: 15px;
+            color: #aaa;
+            font-size: 0.7rem;
+        }
+        
+        .dream-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .dream-action-btn {
+            background-color: #2d2d2d;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 5px 10px;
+            color: var(--light-text);
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .dream-action-btn:hover {
+            background-color: var(--primary-color);
+            color: #000;
+        }
+        
+        .view-more-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #2d2d2d;
+            border: none;
+            color: var(--primary-color);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .view-more-btn:hover {
+            background-color: #333;
+        }
+        
+        /* Stats tab */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .stats-card {
+            background-color: #1d1d1d;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .stats-card-title {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .stats-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #2d2d2d;
+        }
+        
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+        
+        .stat-item-label {
+            color: #aaa;
+            font-size: 0.8rem;
+        }
+        
+        .stat-item-value {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--light-text);
+            font-size: 0.8rem;
+        }
+        
+        .dream-type-chart, .time-distribution-chart {
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            font-style: italic;
+        }
+        
+        /* Settings tab */
+        .settings-section {
+            background-color: #1d1d1d;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .settings-title {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--primary-color);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #2d2d2d;
+        }
+        
+        .settings-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .form-group label {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--primary-color);
+            font-size: 0.7rem;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            background-color: #2d2d2d;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 10px 15px;
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .profile-avatar-selection {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .avatar-option {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .avatar-option input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .avatar-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+        
+        .avatar-option input:checked + .avatar-img {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+        
+        .settings-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .cancel-btn {
+            background-color: #2d2d2d;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 10px 20px;
+            color: var(--light-text);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .cancel-btn:hover {
+            background-color: #333;
+        }
+        
+        .save-btn {
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            color: #000;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .save-btn:hover {
+            background-color: #000;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+            }
+            
+            .profile-avatar-wrapper {
+                position: static;
+                display: flex;
+                justify-content: center;
+                margin-top: -60px;
+            }
+            
+            .profile-info-wrapper {
+                padding: 20px;
+            }
+            
+            .profile-stats {
+                flex-wrap: wrap;
+            }
+            
+            .profile-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .profile-tab {
+                flex-grow: 1;
+                text-align: center;
+                font-size: 0.7rem;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <!-- Header with player info -->
+        <header class="game-header">
+            <div class="player-info">
+                <img src="/api/placeholder/40/40" alt="Your Avatar" class="player-avatar">
+                <div class="player-details">
+                    <span class="player-name">DREAMER</span>
+                    <span class="player-title">Novice Explorer</span>
+                </div>
+            </div>
+            
+            <div class="level-info">
+                <div class="level-display">LVL 5</div>
+                <div class="level-progress">
+                    <div class="progress-bar" style="width: 45%;"></div>
+                </div>
+                <div class="aura-balance">AURA: 2,450</div>
+            </div>
+        </header>
+        
+        <!-- Navigation Menu -->
+        <nav class="game-nav">
+            <a href="#" class="nav-item">HOME</a>
+            <a href="#" class="nav-item">DREAM STORIES</a>
+            <a href="#" class="nav-item">AURA GAME</a>
+            <a href="#" class="nav-item">ACHIEVEMENTS</a>
+            <a href="#" class="nav-item">COMMUNITY</a>
+        </nav>
+        
+        <!-- Profile Content -->
+        <main>
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-cover">
+                    <div class="profile-avatar-wrapper">
+                        <img src="/api/placeholder/120/120" alt="Profile Avatar" class="profile-avatar">
+                    </div>
+                </div>
+                <div class="profile-info-wrapper">
+                    <div class="profile-actions">
+                        <button class="profile-action-btn">
+                            <span>✏️</span>
+                            <span>EDIT PROFILE</span>
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <h1 class="profile-name">DREAMER</h1>
+                        <div class="profile-title">Novice Dream Explorer</div>
+                        <div class="profile-bio">
+                            Exploring the depths of the dreamscape one night at a time. Fascinated by lucid dreaming and the meaning behind recurring symbols.
+                        </div>
+                        <div class="profile-stats">
+                            <div class="profile-stat">
+                                <div class="stat-value">8</div>
+                                <div class="stat-label">DREAMS</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="stat-value">3</div>
+                                <div class="stat-label">BADGES</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="stat-value">42</div>
+                                <div class="stat-label">DAYS</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="stat-value">2,450</div>
+                                <div class="stat-label">AURA</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Profile Tabs -->
+            <div class="profile-tabs">
+                <div class="profile-tab active" data-tab="achievements">ACHIEVEMENTS</div>
+                <div class="profile-tab" data-tab="dreams">MY DREAMS</div>
+                <div class="profile-tab" data-tab="stats">STATISTICS</div>
+                <div class="profile-tab" data-tab="settings">SETTINGS</div>
+            </div>
+            
+            <!-- Achievements Tab -->
+            <div class="tab-content active" id="achievements-tab">
+                <div class="achievements-grid">
+                    <!-- Achievement 1 -->
+                    <div class="achievement-card">
+                        <div class="achievement-icon">🌙</div>
+                        <h3 class="achievement-title">DREAM RECORDER</h3>
+                        <p class="achievement-desc">Record your first 5 dreams in the dreamscape.</p>
+                        <div class="achievement-progress">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                        <div class="achievement-status completed">COMPLETED</div>
+                    </div>
+                    
+                    <!-- Achievement 2 -->
+                    <div class="achievement-card">
+                        <div class="achievement-icon">🔄</div>
+                        <h3 class="achievement-title">CONSISTENT VISITOR</h3>
+                        <p class="achievement-desc">Visit the dreamscape for 7 consecutive days.</p>
+                        <div class="achievement-progress">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                        <div class="achievement-status completed">COMPLETED</div>
+                    </div>
+                    
+                    <!-- Achievement 3 -->
+                    <div class="achievement-card">
+                        <div class="achievement-icon">✨</div>
+                        <h3 class="achievement-title">AURA COLLECTOR</h3>
+                        <p class="achievement-desc">Collect 1,000 aura points through the Aura Clicker game.</p>
+                        <div class="achievement-progress">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                        <div class="achievement-status completed">COMPLETED</div>
+                    </div>
+                    
+                    <!-- Achievement 4 (In Progress) -->
+                    <div class="achievement-card">
+                        <div class="achievement-icon">📝</div>
+                        <h3 class="achievement-title">DREAM ANALYST</h3>
+                        <p class="achievement-desc">Interpret 10 dreams from other dreamers in the community.</p>
+                        <div class="achievement-progress">
+                            <div class="progress-fill" style="width: 20%;"></div>
+                        </div>
+                        <div class="achievement-status">2/10 COMPLETED</div>
+                    </div>
+                    
+                    <!-- Achievement 5 (Locked) -->
+                    <div class="achievement-card locked">
+                        <div class="achievement-icon">🧙‍♂️</div>
+                        <h3 class="achievement-title">DREAM MASTER</h3>
+                        <p class="achievement-desc">Record 50 dreams in your dreamscape journal.</p>
+                        <div class="achievement-progress">
+                            <div class="progress-fill" style="width: 16%;"></div>
+                        </div>
+                        <div class="achievement-status">8/50 COMPLETED</div>
+                    </div>
+                    
+                    <!-- Achievement 6 (Locked) -->
+                    <div class="achievement-card locked">
+                        <div class="achievement-icon">📚</div>
+                        <h3 class="achievement-title">STORYTELLER</h3>
+                        <p class="achievement-desc">Have 5 of your dream stories featured on the main page.</p>
+                        <div class="achievement-progress">
+                            <div class="progress-fill" style="width: 20%;"></div>
+                        </div>
+                        <div class="achievement-status">1/5 COMPLETED</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dreams Tab -->
+            <div class="tab-content" id="dreams-tab">
+                <div class="dream-history">
+                    <div class="dream-history-header">
+                        <h3 class="dream-history-title">MY DREAM JOURNAL</h3>
+                        <div class="dream-history-filter">
+                            <label>FILTER:</label>
+                            <select>
+                                <option value="all">All Dreams</option>
+                                <option value="lucid">Lucid Dreams</option>
+                                <option value="recurring">Recurring Dreams</option>
+                                <option value="nightmares">Nightmares</option>
+                            </select>
+                        </div>
+                    </div>
+                    <ul class="dream-list">
+                        <!-- Dream 1 -->
+                        <li class="dream-item">
+                            <div class="dream-info">
+                                <h4 class="dream-list-title">THE FLOATING CITY</h4>
+                                <div class="dream-meta">
+                                    <span>March 24, 2025</span>
+                                    <span>Adventure</span>
+                                    <span>124 views</span>
+                                </div>
+                            </div>
+                            <div class="dream-actions">
+                                <button class="dream-action-btn">EDIT</button>
+                                <button class="dream-action-btn">VIEW</button>
+                            </div>
+                        </li>
+                        
+                        <!-- Dream 2 -->
+                        <li class="dream-item">
+                            <div class="dream-info">
+                                <h4 class="dream-list-title">UNDERWATER LIBRARY</h4>
+                                <div class="dream-meta">
+                                    <span>March 20, 2025</span>
+                                    <span>Surreal</span>
+                                    <span>87 views</span>
+                                </div>
+                            </div>
+                            <div class="dream-actions">
+                                <button class="dream-action-btn">EDIT</button>
+                                <button class="dream-action-btn">VIEW</button>
+                            </div>
+                        </li>
+                        
+                        <!-- Dream 3 -->
+                        <li class="dream-item">
+                            <div class="dream-info">
+                                <h4 class="dream-list-title">THE ENDLESS STAIRCASE</h4>
+                                <div class="dream-meta">
+                                    <span>March 15, 2025</span>
+                                    <span>Lucid</span>
+                                    <span>42 views</span>
+                                </div>
+                            </div>
+                            <div class="dream-actions">
+                                <button class="dream-action-btn">EDIT</button>
+                                <button class="dream-action-btn">VIEW</button>
+                            </div>
+                        </li>
+                        
+                        <!-- Dream 4 -->
+                        <li class="dream-item">
+                            <div class="dream-info">
+                                <h4 class="dream-list-title">THE SHADOW THAT SPEAKS</h4>
+                                <div class="dream-meta">
+                                    <span>March 10, 2025</span>
+                                    <span>Nightmare</span>
+                                    <span>153 views</span>
+                                </div>
+                            </div>
+                            <div class="dream-actions">
+                                <button class="dream-action-btn">EDIT</button>
+                                <button class="dream-action-btn">VIEW</button>
+                            </div>
+                        </li>
+                        
+                        <!-- Dream 5 -->
+                        <li class="dream-item">
+                            <div class="dream-info">
+                                <h4 class="dream-list-title">CRYSTAL MOUNTAINS</h4>
+                                <div class="dream-meta">
+                                    <span>March 8, 2025</span>
+                                    <span>Adventure</span>
+                                    <span>62 views</span>
+                                </div>
+                            </div>
+                            <div class="dream-actions">
+                                <button class="dream-action-btn">EDIT</button>
+                                <button class="dream-action-btn">VIEW</button>
+                            </div>
+                        </li>
+                    </ul>
+                    <button class="view-more-btn">VIEW ALL DREAMS</button>
+                </div>
+                
+                <div class="dream-history">
+                    <div class="dream-history-header">
+                        <h3 class="dream-history-title">DREAM DRAFTS</h3>
+                    </div>
+                    <ul class="dream-list">
+                        <!-- Draft 1 -->
+                        <li class="dream-item">
+                            <div class="dream-info">
+                                <h4 class="dream-list-title">FLYING THROUGH NEBULAS</h4>
+                                <div class="dream-meta">
+                                    <span>Started on March 27, 2025</span>
+                                    <span>Draft</span>
+                                </div>
+                            </div>
+                            <div class="dream-actions">
+                                <button class="dream-action-btn">EDIT</button>
+                                <button class="dream-action-btn">DELETE</button>
+                            </div>
+                        </li>
+                        
+                        <!-- Draft 2 -->
+                        <li class="dream-item">
+                            <div class="dream-info">
+                                <h4 class="dream-list-title">THE ANCIENT TEMPLE</h4>
+                                <div class="dream-meta">
+                                    <span>Started on March 26, 2025</span>
+                                    <span>Draft</span>
+                                </div>
+                            </div>
+                            <div class="dream-actions">
+                                <button class="dream-action-btn">EDIT</button>
+                                <button class="dream-action-btn">DELETE</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Stats Tab -->
+            <div class="tab-content" id="stats-tab">
+                <div class="stats-grid">
+                    <!-- Dream Activity -->
+                    <div class="stats-card">
+                        <h3 class="stats-card-title">DREAM ACTIVITY</h3>
+                        <div class="stats-list">
+                            <div class="stat-item">
+                                <div class="stat-item-label">Total Dreams Recorded</div>
+                                <div class="stat-item-value">8</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-item-label">Dream Streak</div>
+                                <div class="stat-item-value">5 days</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-item-label">Average Dream Length</div>
+                                <div class="stat-item-value">348 words</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-item-label">First Dream Recorded</div>
+                                <div class="stat-item-value">February 14, 2025</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-item-label">Most Recent Dream</div>
+                                <div class="stat-item-value">March 24, 2025</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dream Types -->
+                    <div class="stats-card">
+                        <h3 class="stats-card-title">DREAM TYPES</h3>
+                        <div class="dream-type-chart">
+                            [Dream Type Distribution Chart]
+                        </div>
+                        <div class="stats-list" style="margin-top: 20px;">
+                            <div class="stat-item">
+                                <div class="stat-item-label">Adventure</div>
+                                <div class="stat-item-value">3 (38%)</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-item-label">Surreal</div>
+                                <div class="stat-item-value">2 (25%)</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-item-label">Lucid</div>
+                                <div class="stat-item-value">2 (25%)</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-item-label">Nightmare</div>
+                                <div class="stat-item-value">1 (12%)</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Aura Stats -->
+                    <div class="stats-card">
+                        <h3 class="stats-card-title">AURA STATISTICS</h3>
+                        <div class="stats-list">
+                            <div class="stat-item">
+                                <div class="stat-item-label">Total Aura Collected</div>
+                                <div class="stat-item-value">2,450</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-item-label">Aura Earned Today</div>
+                                <div class="stat-item-value">124</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-item-label">Aura From Clicks</div>
+                                <div class="stat-item-value">1,820</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-item-label">Aura From Passive Income</div>
+                                <div class="stat-item-value">630</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-item-label">Highest Daily Aura</div>
+                                <div class="stat-item-value">325</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dream Time Distribution -->
+                    <div class="stats-card">
+                        <h3 class="stats-card-title">DREAM TIME DISTRIBUTION</h3>
+                        <div class="time-distribution-chart">
+                            [Dream Time Distribution Chart]
+                        </div>
+                        <div class="stats-list" style="margin-top: 20px;">
+                            <div class="stat-item">
+                                <div class="stat-item-label">Early Morning (3AM-6AM)</div>
+                                <div class="stat-item-value">5 (63%)</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-item-label">Late Night (12AM-3AM)</div>
+                                <div class="stat-item-value">2 (25%)</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-item-label">Evening (9PM-12AM)</div>
+                                <div class="stat-item-value">1 (12%)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Settings Tab -->
+            <div class="tab-content" id="settings-tab">
+                <!-- Profile Settings -->
+                <div class="settings-section">
+                    <h2 class="settings-title">PROFILE SETTINGS</h2>
+                    <form class="settings-form">
+                        <div class="form-group">
+                            <label for="display-name">DISPLAY NAME</label>
+                            <input type="text" id="display-name" value="DREAMER">
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-title">PROFILE TITLE</label>
+                            <input type="text" id="profile-title" value="Novice Dream Explorer">
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-bio">BIO</label>
+                            <textarea id="profile-bio">Exploring the depths of the dreamscape one night at a time. Fascinated by lucid dreaming and the meaning behind recurring symbols.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>PROFILE AVATAR</label>
+                            <div class="profile-avatar-selection">
+                                <label class="avatar-option">
+                                    <input type="radio" name="avatar" value="avatar1" checked>
+                                    <img src="/api/placeholder/60/60" class="avatar-img" alt="Avatar 1">
+                                </label>
+                                <label class="avatar-option">
+                                    <input type="radio" name="avatar" value="avatar2">
+                                    <img src="/api/placeholder/60/60" class="avatar-img" alt="Avatar 2">
+                                </label>
+                                <label class="avatar-option">
+                                    <input type="radio" name="avatar" value="avatar3">
+                                    <img src="/api/placeholder/60/60" class="avatar-img" alt="Avatar 3">
+                                </label>
+                                <label class="avatar-option">
+                                    <input type="radio" name="avatar" value="avatar4">
+                                    <img src="/api/placeholder/60/60" class="avatar-img" alt="Avatar 4">
+                                </label>
+                                <label class="avatar-option">
+                                    <input type="radio" name="avatar" value="avatar5">
+                                    <img src="/api/placeholder/60/60" class="avatar-img" alt="Avatar 5">
+                                </label>
+                                <label class="avatar-option">
+                                    <input type="radio" name="avatar" value="avatar6">
+                                    <img src="/api/placeholder/60/60" class="avatar-img" alt="Avatar 6">
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Account Settings -->
+                <div class="settings-section">
+                    <h2 class="settings-title">ACCOUNT SETTINGS</h2>
+                    <form class="settings-form">
+                        <div class="form-group">
+                            <label for="email">EMAIL ADDRESS</label>
+                            <input type="email" id="email" value="dreamer@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="current-password">CURRENT PASSWORD</label>
+                            <input type="password" id="current-password">
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">NEW PASSWORD</label>
+                            <input type="password" id="new-password">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">CONFIRM NEW PASSWORD</label>
+                            <input type="password" id="confirm-password">
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Privacy Settings -->
+                <div class="settings-section">
+                    <h2 class="settings-title">PRIVACY SETTINGS</h2>
+                    <form class="settings-form">
+                        <div class="form-group">
+                            <label for="dream-visibility">DEFAULT DREAM VISIBILITY</label>
+                            <select id="dream-visibility">
+                                <option value="public">Public - Visible to all users</option>
+                                <option value="members">Members - Visible to registered users only</option>
+                                <option value="private">Private - Visible only to me</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-visibility">PROFILE VISIBILITY</label>
+                            <select id="profile-visibility">
+                                <option value="public">Public - Visible to all users</option>
+                                <option value="members">Members - Visible to registered users only</option>
+                                <option value="private">Private - Visible only to friends</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="activity-visibility">ACTIVITY VISIBILITY</label>
+                            <select id="activity-visibility">
+                                <option value="public">Public - Share my activity with everyone</option>
+                                <option value="members">Members - Share my activity with registered users</option>
+                                <option value="private">Private - Don't share my activity</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="settings-actions">
+                    <button class="cancel-btn">CANCEL</button>
+                    <button class="save-btn">SAVE CHANGES</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const tabs = document.querySelectorAll('.profile-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    const tabName = this.getAttribute('data-tab');
+                    document.getElementById(tabName + '-tab').classList.add('active');
+                });
+            });
+            
+            // Profile edit button
+            const editProfileBtn = document.querySelector('.profile-action-btn');
+            editProfileBtn.addEventListener('click', function() {
+                // Switch to settings tab
+                document.querySelector('[data-tab="settings"]').click();
+            });
+            
+            // Dreams filter functionality
+            const dreamFilter = document.querySelector('.dream-history-filter select');
+            dreamFilter.addEventListener('change', function() {
+                const filterValue = this.value;
+                alert(`Filter changed to: ${filterValue}`);
+                // In a real app, this would filter the dreams list
+            });
+            
+            // View all dreams button
+            const viewMoreBtn = document.querySelector('.view-more-btn');
+            viewMoreBtn.addEventListener('click', function() {
+                alert('In a real app, this would load more dreams or navigate to a full dreams page');
+            });
+            
+            // Save settings button
+            const saveBtn = document.querySelector('.save-btn');
+            saveBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Settings saved successfully!');
+            });
+            
+            // Cancel button
+            const cancelBtn = document.querySelector('.cancel-btn');
+            cancelBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Changes discarded');
+                // In a real app, this would reset the form to original values
+            });
+        });
+    </script>
+</body>
+</html>

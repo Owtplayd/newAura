@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA - Game Login</title>
+    <title>Dreamscape - Portal Login</title>
     <link rel="stylesheet" href="styles.css">
     <!-- Google Fonts - Press Start 2P for 8-bit look -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <div class="login-box">
-            <h1 class="game-title">AURA</h1>
+            <h1 class="site-title">DREAMSCAPE</h1>
             
             <!-- Tab navigation -->
             <div class="tab-buttons">
@@ -30,7 +30,7 @@
                         <label for="password">PASSWORD</label>
                         <input type="password" id="password" name="password" required>
                     </div>
-                    <button type="submit" class="submit-btn">ENTER</button>
+                    <button type="submit" class="submit-btn">PROCEED</button>
                 </form>
                 <div id="signin-message" class="message"></div>
             </div>
@@ -50,6 +50,33 @@
                         <label for="confirm-password">CONFIRM PASSWORD</label>
                         <input type="password" id="confirm-password" name="confirm-password" required>
                     </div>
+                    
+                    <!-- Avatar Selection -->
+                    <div class="form-group">
+                        <label>SELECT AVATAR</label>
+                        <div class="avatar-grid">
+                            <div class="avatar-option">
+                                <img src="/api/placeholder/60/60" class="avatar-img" data-avatar="avatar1" alt="Pixel Avatar 1">
+                            </div>
+                            <div class="avatar-option">
+                                <img src="/api/placeholder/60/60" class="avatar-img" data-avatar="avatar2" alt="Pixel Avatar 2">
+                            </div>
+                            <div class="avatar-option">
+                                <img src="/api/placeholder/60/60" class="avatar-img" data-avatar="avatar3" alt="Pixel Avatar 3">
+                            </div>
+                            <div class="avatar-option">
+                                <img src="/api/placeholder/60/60" class="avatar-img" data-avatar="avatar4" alt="Pixel Avatar 4">
+                            </div>
+                            <div class="avatar-option">
+                                <img src="/api/placeholder/60/60" class="avatar-img" data-avatar="avatar5" alt="Pixel Avatar 5">
+                            </div>
+                            <div class="avatar-option">
+                                <img src="/api/placeholder/60/60" class="avatar-img" data-avatar="avatar6" alt="Pixel Avatar 6">
+                            </div>
+                        </div>
+                        <input type="hidden" id="selected-avatar" name="selected-avatar" value="">
+                    </div>
+                    
                     <button type="submit" class="submit-btn">REGISTER</button>
                 </form>
                 <div id="signup-message" class="message"></div>
@@ -58,5 +85,25 @@
     </div>
     
     <script src="login.js"></script>
+    <script>
+        // Avatar selection functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarImages = document.querySelectorAll('.avatar-img');
+            const selectedAvatarInput = document.getElementById('selected-avatar');
+            
+            avatarImages.forEach(img => {
+                img.addEventListener('click', function() {
+                    // Remove selected class from all avatars
+                    avatarImages.forEach(avatar => avatar.classList.remove('selected'));
+                    
+                    // Add selected class to clicked avatar
+                    this.classList.add('selected');
+                    
+                    // Update hidden input value
+                    selectedAvatarInput.value = this.getAttribute('data-avatar');
+                });
+            });
+        });
+    </script>
 </body>
 </html>

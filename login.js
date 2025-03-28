@@ -1,4 +1,4 @@
-// login.js - Handles authentication for the AURA game
+// login.js - Handles authentication for the Dreamscape portal
 
 document.addEventListener('DOMContentLoaded', function() {
     // DOM Elements
@@ -10,11 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const signupForm = document.getElementById('signup-form');
     const signinMessage = document.getElementById('signin-message');
     const signupMessage = document.getElementById('signup-message');
+    const selectedAvatarInput = document.getElementById('selected-avatar');
+    const avatarImages = document.querySelectorAll('.avatar-img');
     
     // Temporary user data (will be replaced with database later)
     const validUser = {
-        username: 'Alpha',
-        password: 'Password'
+        username: 'dreamer',
+        password: 'dream123'
     };
     
     // Tab switching functionality
@@ -36,6 +38,22 @@ document.addEventListener('DOMContentLoaded', function() {
         clearForms();
     });
     
+    // Avatar selection functionality
+    if (avatarImages) {
+        avatarImages.forEach(img => {
+            img.addEventListener('click', function() {
+                // Remove selected class from all avatars
+                avatarImages.forEach(avatar => avatar.classList.remove('selected'));
+                
+                // Add selected class to clicked avatar
+                this.classList.add('selected');
+                
+                // Update hidden input value
+                selectedAvatarInput.value = this.getAttribute('data-avatar');
+            });
+        });
+    }
+    
     // Sign In Form Submission
     signinForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -44,24 +62,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const password = document.getElementById('password').value;
         
         // Add a small delay to simulate server authentication
-        signinMessage.innerHTML = 'Authenticating...';
+        signinMessage.innerHTML = 'Connecting to the dreamscape...';
         signinMessage.className = 'message';
         
         setTimeout(() => {
-            // Check if username and password match
-            if (username.toLowerCase() === validUser.username.toLowerCase() && password === validUser.password) {
-                signinMessage.innerHTML = 'Login successful! Redirecting...';
-                signinMessage.className = 'message success';
-                
-                // For now, just simulate redirect with a message
-                // In a real app, you would redirect to the game page
-                setTimeout(() => {
-                    window.location.href = 'game.html';
-                }, 1500);
-            } else {
-                signinMessage.innerHTML = 'Invalid username or password. Please try again.';
-                signinMessage.className = 'message error';
-            }
+            // For demo purposes, any username/password combination will work
+            // In a real app, you would validate against a database
+            signinMessage.innerHTML = 'Login successful! Entering the dreamscape...';
+            signinMessage.className = 'message success';
+            
+            // Redirect to the home page
+            setTimeout(() => {
+                window.location.href = 'homePage.html';
+            }, 1500);
         }, 1000);
     });
     
@@ -72,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const newUsername = document.getElementById('new-username').value.trim();
         const newPassword = document.getElementById('new-password').value;
         const confirmPassword = document.getElementById('confirm-password').value;
+        const selectedAvatar = selectedAvatarInput.value;
         
         // Basic validation
         if (newPassword !== confirmPassword) {
@@ -80,22 +94,27 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        if (!selectedAvatar) {
+            signupMessage.innerHTML = 'Please select an avatar to continue.';
+            signupMessage.className = 'message error';
+            return;
+        }
+        
         // Add a small delay to simulate server operation
-        signupMessage.innerHTML = 'Creating account...';
+        signupMessage.innerHTML = 'Creating your dreamscape profile...';
         signupMessage.className = 'message';
         
         setTimeout(() => {
             // Show success message (in a real app, you would save to database)
-            signupMessage.innerHTML = 'Account created! Please go to sign in.';
+            signupMessage.innerHTML = 'Welcome, Dreamer! Your profile has been created. Please sign in to continue.';
             signupMessage.className = 'message success';
             
             // Clear the form
             document.getElementById('signup-form').reset();
             
-            // For demonstration, show a tooltip to use the predefined credentials
+            // Switch back to sign in tab after a delay
             setTimeout(() => {
-                signupMessage.innerHTML = 'For testing, use username: Alpha and password: Password';
-                signupMessage.className = 'message';
+                signinTab.click();
             }, 3000);
         }, 1500);
     });
@@ -111,22 +130,32 @@ document.addEventListener('DOMContentLoaded', function() {
     function clearForms() {
         signinForm.reset();
         signupForm.reset();
+        
+        // Clear avatar selection
+        if (avatarImages) {
+            avatarImages.forEach(avatar => avatar.classList.remove('selected'));
+        }
+        if (selectedAvatarInput) {
+            selectedAvatarInput.value = '';
+        }
     }
     
-    // Add typewriter effect to the game title (optional visual enhancement)
-    const gameTitle = document.querySelector('.game-title');
-    const titleText = gameTitle.textContent;
-    gameTitle.textContent = '';
-    
-    let i = 0;
-    const typeWriter = function() {
-        if (i < titleText.length) {
-            gameTitle.textContent += titleText.charAt(i);
-            i++;
-            setTimeout(typeWriter, 150);
-        }
-    };
-    
-    // Start the typewriter effect
-    typeWriter();
+    // Add typewriter effect to the site title
+    const siteTitle = document.querySelector('.site-title');
+    if (siteTitle) {
+        const titleText = siteTitle.textContent;
+        siteTitle.textContent = '';
+        
+        let i = 0;
+        const typeWriter = function() {
+            if (i < titleText.length) {
+                siteTitle.textContent += titleText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 150);
+            }
+        };
+        
+        // Start the typewriter effect
+        typeWriter();
+    }
 });
